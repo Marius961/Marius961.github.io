@@ -86,8 +86,8 @@ html > body {
 }
 
 .categories-container {
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow-y: hidden;
+    overflow-x: scroll;
     left: 0;
     flex-wrap: nowrap;
     background: #57708b;
@@ -110,7 +110,7 @@ html > body {
 }
 
 ::-webkit-scrollbar {
-    height: 1.5vh;
+    height: 0.3vh;
 }
 
 ::-webkit-scrollbar-track {
