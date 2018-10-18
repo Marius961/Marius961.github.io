@@ -1,0 +1,27 @@
+
+
+.page-header > span {
+    font-family: "Segoe UI Light", serif;
+    font-size: 5vh;
+    color: snow;
+}
+
+
+.project-card {
+    background: #272727;
+    color: snow;
+}
+
+.product-name {
+
+}
+
+.link-1 {
+    text-decoration: none;
+    color: snow;
+}
+
+.link-1:hover {
+    color: #b1adad;
+    cursor: pointer;
+}
