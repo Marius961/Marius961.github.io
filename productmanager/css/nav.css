@@ -35,3 +35,37 @@
         display: block;
     }
 }
+
+.search-input {
+    border-radius: 0.3em;
+    border: 0;
+    background: #cfcfcf;
+    transition: 200ms;
+}
+
+.search-input:focus {
+    background: white;
+    transition: 200ms;
+}
+
+.search-segment {
+
+}
+
+.popup-bg {
+    display: none;
+    z-index: 1;
+    background-color: rgba(0,0,0,0.5);
+    overflow:hidden;
+    position:absolute;
+
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.close-btn:hover {
+    cursor: pointer;
+}
+
