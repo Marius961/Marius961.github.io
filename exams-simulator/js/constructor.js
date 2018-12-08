@@ -17,7 +17,6 @@ $(document).ready(function () {
         let correctAnswer = "";
         let question = $("#question").val().replace(/[']/g, "\"");
         addQuestionDemo(question);
-        alert(question);
         let i = 0;
         $("#variants").find("input").each(function (index, element) {
             if ($(element).val()) {

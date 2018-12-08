@@ -11,7 +11,6 @@ $(document).ready(function () {
 
     function onReaderLoad(event){
         obj = JSON.parse(event.target.result);
-        console.log(event.target.result)
         fadeOutContainer("fileLoadContainer");
         addQuestionsWithVariants(obj);
     }
