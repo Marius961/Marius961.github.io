@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Головна</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/constructor.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+</head>
+<body>
+<main class="container container-box mt-4">
+    <div class="row mt-3">
+        <div class="col-12 header-1 text-center">Конструктор тестів</div>
+        <div class="w-100 hr-orange mt-3 mb-3"></div>
+        <div class="label-1 p-2">Інструкція: в полі запитання повністю введіть запитання, далі у полях варіантів введіть всі варіанти відповідей
+        перед правильним варіантом відповіді поставте "+" (в кінцевому варіанті його у відповідях не буде).</div>
+        <div class="w-100 hr-orange mt-3 mb-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-12 ">
+            <div class="row p-2">
+                <label class="col-12">Введіть запитання</label>
+                <input class="col-12" id="question" type="text">
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12" id="variants">
+                    <div class="row pl-5 p-2">
+                        <label class="col-12">Введіть варіант відповіді</label>
+                        <input class="col-12" type="text">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-auto">
+                    <div class="row p-3">
+                        <div class="col-12 col-sm-auto btn btn-secondary header-1" id="addVariant">Додати ще варіант</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-3">
+                <div class="col-12 col-sm-auto btn btn-primary" id="saveQuestion">Зберегти питання</div>
+                <div class="w-100 hr-orange mt-3 mb-3"></div>
+                <div class="col-12 col-sm-6 mb-2 m-sm-0">
+                    <div class="row" id="downloadSegment">
+                        <div class="col-12 col-sm-auto btn btn-primary" id="generateFile">Згенерувати JSON файл тестів</div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 mt-2 m-sm-0">
+                    <div class="row justify-content-end">
+                        <a class="col-12 col-sm-auto btn btn-secondary" href="index.html">Повернутись на головну</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12" id="downloadContainer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row p-3" id="demo">
+        <div class="w-100 hr-orange mt-3 mb-3"></div>
+
+    </div>
+</main>
+<script type="text/javascript">
+    window.onbeforeunload = confirmExit;
+    function confirmExit()
+    {
+        return "";
+    }
+</script>
+<script rel="script" src="js/constructor.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>

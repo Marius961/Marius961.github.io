@@ -1,0 +1,70 @@
+html > body {
+    font-family: "Roboto", serif;
+    background: #353740;
+    color: snow;
+}
+
+.header-1 {
+    font-weight: 600;
+    font-size: 2em;
+}
+
+.label-1 {
+    font-weight: 400;
+    font-size: 1em;
+}
+
+.mt-20 {
+    margin-top: 15%;
+}
+
+
+.hr-orange {
+    height: 1px;
+    border-top: 1px solid darkorange;
+    padding: 0;
+    margin: 0;
+}
+
+.question-text {
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+.variant {
+    font-size: 1.3em;
+
+}
+
+#questions, #resultContainer {
+    display: none;
+}
+
+
+.result {
+    font-size: 3em;
+    font-weight: 300;
+}
+
+input[type=radio] {
+    border: 0;
+    height: 20px;
+    width: 20px;
+}
+
+.container-box {
+    background: #2d2f39;
+    border: 2px solid darkorange;
+}
+
+.download-btn {
+    background: green;
+    font-weight: 500;
+    font-size: 2em;
+    color: snow;
+}
+
+.download-btn:hover {
+    color: snow;
+    text-decoration: none;
+}
