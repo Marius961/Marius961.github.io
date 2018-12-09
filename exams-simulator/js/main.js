@@ -1,4 +1,5 @@
-let obj = "";
+let obj = { questions: []
+};
 let points = 0;
 let animationTime = 150;
 
@@ -6,8 +7,30 @@ $(document).ready(function () {
 
     function onChange(event) {
         let reader = new FileReader();
-        reader.onload = onReaderLoad;
+        let fileName = event.target.files[0].name;
+        let lastIndex = fileName.lastIndexOf('.');
+        let type = fileName.substr(lastIndex);
+        if (type === ".json") {
+            reader.onload = onReaderLoad;
+        }
+        if (type === ".txt") {
+            reader.onload = parseTextFile;
+        }
+
         reader.readAsText(event.target.files[0]);
+    }
+
+    function parseTextFile(event) {
+        let array = event.target.result.split(/\n\s*\n|\r\n\s*\r\n/);
+        for (let i = 0; i < array.length; i++) {
+            if (array[i].trim() !== "") {
+                generateVariants(i, array[i])
+            }
+        }
+        fadeOutContainer("fileLoadContainer");
+        setTimeout(function () {
+            addQuestionsWithVariants(obj);
+        }, animationTime);
     }
 
     function onReaderLoad(event){
@@ -65,8 +88,8 @@ $(document).ready(function () {
                     fadeOutContainer("resultContainer");
                     setTimeout(function () {
                         fadeInContainer("questions");
+                        $("#result").empty();
                     }, animationTime);
-                    $("#result").empty();
                 });
                 $("#choseFile").click(function () {
                     $("#questions").empty();
@@ -84,7 +107,7 @@ $(document).ready(function () {
     }
 
 
-    document.getElementById('testsFile').addEventListener('change', onChange);
+    document.getElementById('JSONFile').addEventListener('change', onChange);
 });
 
 
@@ -96,3 +119,39 @@ function fadeOutContainer(containerId) {
 function fadeInContainer(containerId) {
     $("#" + containerId).fadeIn(animationTime);
 }
+
+
+function generateVariants(questionId ,question) {
+    let tempVariants = question.split('\n');
+    let questionText = tempVariants[0];
+    let correctVariantId = 0;
+    let varionts = [];
+    tempVariants.shift();
+    for (let i = 0; i < tempVariants.length; i++) {
+        let text= tempVariants[i].trim();
+        if (text !== "") {
+            if (text.substr(0, 1) === '+') {
+                correctVariantId = i;
+                text = text.substr(1);
+            }
+            varionts.push({
+                id:i,
+                text: text
+            })
+        }
+    }
+    addQuestion(questionId, questionText, correctVariantId, varionts);
+}
+
+function addQuestion(id, questionText,answerId , variants) {
+    obj.questions.push({
+        id: id,
+        question:questionText,
+        answerId:answerId,
+        variants:variants
+    });
+}
+
+$("#info-btn").click(function () {
+    $("#info-container").slideToggle(animationTime);
+})

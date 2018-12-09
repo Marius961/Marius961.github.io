@@ -17,13 +17,32 @@
             <div class="col-7 label-1 text-center">Це невеличкий веб додаток для перевірки знань тестів, Ви можете завантажити фийл
              з тестами у форматі JSON або власноруч створити його по посиланню нижче.</div>
             <div class="w-50 hr-orange mt-3 mb-3"></div>
-            <label for="testsFile" class="col-12 label-1 text-center">Будь ласка оберіть сумісний з додатком файл JSON</label>
-            <input class="col-auto" id="testsFile" type="file">
+            <label for="JSONFile" class="col-12 label-1 text-center">Будь ласка оберіть сумісний з додатком файл JSON або TXT</label>
+            <input class="col-auto" id="JSONFile" type="file">
             <div class="w-100"></div>
             <div class="w-50 hr-orange mt-3 mb-3"></div>
             <div class="col-12 label-1 text-center mt-3 mb-3">або</div>
             <div class="w-100"></div>
             <a href="constructor.html" class="col-auto btn btn-primary mb-5">Створіть його</a>
+            <div class="col-12 mt-3">
+                <div class="row info-container p-3">
+                    <div class="col-12 text-center info-header" id="info-btn">Оформлення для сумісного TXT файлу</div>
+                    <div class="col-12" id="info-container">
+                        <div class="row justify-content-center">
+                            <div class="col-12 text-center">Примітка: між запитаннями повинно бути 2 пустих рядки</div>
+                            <div class="w-50 hr-orange mt-3 mb-3"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">Питання яке міститься в одному рядку</div>
+                            <div class="col-12">&ensp;Перший варіант відповіді</div>
+                            <div class="col-12">&ensp;Другий варіант відповіді</div>
+                            <div class="col-12">&ensp;Третій варіант відповіді</div>
+                            <div class="col-12">&ensp;+Четвертий варіант відповіді правильний, позначається за допомогою знака "+"</div>
+                            <div class="col-12">&ensp;....</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <form class="container" id="questions">

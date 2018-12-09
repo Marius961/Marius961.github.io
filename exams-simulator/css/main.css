@@ -2,6 +2,7 @@ html > body {
     font-family: "Roboto", serif;
     background: #353740;
     color: snow;
+    transform: 150ms;
 }
 
 .header-1 {
@@ -15,7 +16,7 @@ html > body {
 }
 
 .mt-20 {
-    margin-top: 15%;
+    margin-top: 5%;
 }
 
 
@@ -67,4 +68,24 @@ input[type=radio] {
 .download-btn:hover {
     color: snow;
     text-decoration: none;
+}
+
+.info-container {
+    background: #1e2027;
+ }
+
+.info-header {
+    font-weight: 300;
+    font-size: 1.4em;
+}
+
+.info-header:hover {
+    cursor: pointer;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+}
+
+#info-container {
+    display: none;
 }
