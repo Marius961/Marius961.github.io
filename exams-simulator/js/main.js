@@ -42,13 +42,14 @@ $(document).ready(function () {
     }
 
     function addQuestionsWithVariants(data){
+        data.questions = shuffledArr(data.questions);
         $.each(data.questions, function (index, element) {
             let questionId = "question" + element.id;
             $("#questions").append("" +
                 "<div class='row mt-5 pt-4' id='"+ questionId +"'>\n" +
                 "            <div class='col-12 question-text'>"+ element.question +"</div>\n" +
                 "</div>");
-
+            element.variants = shuffledArr(element.variants);
             $.each(element.variants, function (index, variant) {
                 $("#" + questionId).append("" +
                     "<div class='col-12 ml-5'>\n" +
@@ -71,7 +72,13 @@ $(document).ready(function () {
                 let answerId  = $(element).attr("id");
                 let intQuestionId = answerId.substr(answerId.lastIndexOf('q') + 1, answerId.lastIndexOf('v')-1);
                 let intVariantId = answerId.substr(answerId.lastIndexOf('v') + 1);
-                let correctAnswerId = obj.questions[intQuestionId].answerId;
+                let correctAnswerId = 0;
+                for (let i = 0; i < obj.questions.length; i++) {
+                    if (+obj.questions[i].id === +intQuestionId) {
+                        correctAnswerId = obj.questions[i].answerId;
+                        break
+                    }
+                }
                 if (+intVariantId === +correctAnswerId) {
                     points++;
                 }
@@ -149,6 +156,12 @@ function addQuestion(id, questionText,answerId , variants) {
         question:questionText,
         answerId:answerId,
         variants:variants
+    });
+}
+
+function shuffledArr(arr) {
+    return arr.sort(function(){
+        return Math.random() - 0.5;
     });
 }
 
