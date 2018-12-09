@@ -1,5 +1,6 @@
 let obj = "";
 let points = 0;
+let animationTime = 150;
 
 $(document).ready(function () {
 
@@ -12,14 +13,16 @@ $(document).ready(function () {
     function onReaderLoad(event){
         obj = JSON.parse(event.target.result);
         fadeOutContainer("fileLoadContainer");
-        addQuestionsWithVariants(obj);
+        setTimeout(function () {
+            addQuestionsWithVariants(obj);
+        }, animationTime)
     }
 
     function addQuestionsWithVariants(data){
         $.each(data.questions, function (index, element) {
             let questionId = "question" + element.id;
             $("#questions").append("" +
-                "<div class='row mt-5' id='"+ questionId +"'>\n" +
+                "<div class='row mt-5 pt-4' id='"+ questionId +"'>\n" +
                 "            <div class='col-12 question-text'>"+ element.question +"</div>\n" +
                 "</div>");
 
@@ -34,12 +37,10 @@ $(document).ready(function () {
             })
         });
         $("#questions").append("        " +
-            "<div class=\"row justify-content-center mt-3\">\n" +
+            "<div class=\"row justify-content-center mt-3 mb-3\">\n" +
             "            <div class=\"col-auto btn btn-primary p-1 mt-3\" id=\"calculateResult\">Завершити</div>\n" +
             "        </div>");
         fadeInContainer("questions");
-
-
 
         $("#calculateResult").click(function () {
             let inputsCount = 0;
@@ -56,23 +57,29 @@ $(document).ready(function () {
             if (inputsCount === obj.questions.length) {
                 fadeOutContainer("questions");
                 $("#result").append(points);
-                fadeInContainer("resultContainer");
+                setTimeout(function () {
+                    fadeInContainer("resultContainer");
+                }, animationTime);
                 $("#retry").click(function () {
                     $('input:checked').prop( "checked", false );
                     fadeOutContainer("resultContainer");
-                    fadeInContainer("questions");
-
+                    setTimeout(function () {
+                        fadeInContainer("questions");
+                    }, animationTime);
                     $("#result").empty();
                 });
                 $("#choseFile").click(function () {
                     $("#questions").empty();
                     fadeOutContainer("resultContainer");
-                    fadeInContainer("fileLoadContainer");
+                    setTimeout(function () {
+                        fadeInContainer("fileLoadContainer");
+                    }, animationTime);
                     $("#testsFile").val("");
                 });
             } else {
                 alert("Будь ласка дайте відповідь на всі запитання")
             }
+            points = 0;
         });
     }
 
@@ -83,9 +90,9 @@ $(document).ready(function () {
 
 //
 function fadeOutContainer(containerId) {
-    $("#" + containerId).fadeOut(150);
+    $("#" + containerId).fadeOut(animationTime);
 }
 
 function fadeInContainer(containerId) {
-    $("#" + containerId).fadeIn(150);
+    $("#" + containerId).fadeIn(animationTime);
 }
