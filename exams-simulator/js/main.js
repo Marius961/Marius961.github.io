@@ -6,17 +6,17 @@ let animationTime = 150;
 $(document).ready(function () {
 
     function onChange(event) {
-        let reader = new FileReader();
-        let fileName = event.target.files[0].name;
-        let lastIndex = fileName.lastIndexOf('.');
-        let type = fileName.substr(lastIndex);
+        let reader = new FileReader(),
+            fileName = event.target.files[0].name,
+            lastIndex = fileName.lastIndexOf('.'),
+            type = fileName.substr(lastIndex);
+
         if (type === ".json") {
             reader.onload = onReaderLoad;
         }
         if (type === ".txt") {
             reader.onload = parseTextFile;
         }
-
         reader.readAsText(event.target.files[0]);
     }
 
@@ -52,9 +52,10 @@ $(document).ready(function () {
                 "</div>");
             element.variants = shuffledArr(element.variants);
             $.each(element.variants, function (index, variant) {
-                $("#" + questionId).append("<div class='col-12'>" +
+                $("#" + questionId).append("" +
+                    "<div class='col-12'>" +
                     "   <div class='row custom-control custom-radio ml-2 ml-sm-4 pt-2 pb-2'>\n" +
-                    "        <input type='radio' class='col-auto custom-control-input' name='q"+ element.id +"' id='q"+ element.id + "v" + variant.id +"'>\n" +
+                    "       <input type='radio' class='col-auto custom-control-input ' name='q"+ element.id +"' id='q"+ element.id + "v" + variant.id +"'>\n" +
                     "       <label class='col-auto custom-control-label variant' for='q"+ element.id + "v" + variant.id +"'>"+ variant.text +"</label>\n" +
                     "   </div>" +
                     "</div>");
@@ -69,10 +70,11 @@ $(document).ready(function () {
         $("#calculateResult").click(function () {
             let inputsCount = 0;
             $('input:checked').each(function (index, element) {
-                let answerId  = $(element).attr("id");
-                let intQuestionId = answerId.substr(answerId.lastIndexOf('q') + 1, answerId.lastIndexOf('v')-1);
-                let intVariantId = answerId.substr(answerId.lastIndexOf('v') + 1);
-                let correctAnswerId = 0;
+                let answerId  = $(element).attr("id"),
+                    intQuestionId = answerId.substr(answerId.lastIndexOf('q') + 1, answerId.lastIndexOf('v')-1),
+                    intVariantId = answerId.substr(answerId.lastIndexOf('v') + 1),
+                    correctAnswerId = 0;
+
                 for (let i = 0; i < obj.questions.length; i++) {
                     if (+obj.questions[i].id === +intQuestionId) {
                         correctAnswerId = obj.questions[i].answerId;
@@ -91,7 +93,8 @@ $(document).ready(function () {
                     fadeInContainer("resultContainer");
                 }, animationTime);
                 $("#retry").click(function () {
-                    $('input:checked').prop( "checked", false );
+                    $('#questions').empty();
+                    addQuestionsWithVariants(obj);
                     fadeOutContainer("resultContainer");
                     setTimeout(function () {
                         fadeInContainer("questions");
@@ -104,7 +107,9 @@ $(document).ready(function () {
                     setTimeout(function () {
                         fadeInContainer("fileLoadContainer");
                     }, animationTime);
-                    $("#testsFile").val("");
+                    $("#JSONFile").val("");
+                    obj = { questions: []
+                    };
                 });
             } else {
                 alert("Будь ласка дайте відповідь на всі запитання")
@@ -167,4 +172,4 @@ function shuffledArr(arr) {
 
 $("#info-btn").click(function () {
     $("#info-container").slideToggle(animationTime);
-})
+});
