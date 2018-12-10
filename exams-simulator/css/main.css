@@ -30,11 +30,13 @@ html > body {
 .question-text {
     font-size: 1.3em;
     font-weight: 500;
+    color: #ededed;
 }
 
 .variant {
     font-size: 1.3em;
-
+    font-weight: 300;
+    color: #ededed;
 }
 
 #questions, #resultContainer {

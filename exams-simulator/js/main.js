@@ -45,19 +45,19 @@ $(document).ready(function () {
         data.questions = shuffledArr(data.questions);
         $.each(data.questions, function (index, element) {
             let questionId = "question" + element.id;
+            let textQuestionCount = +index+1 + ") ";
             $("#questions").append("" +
                 "<div class='row mt-5 pt-4' id='"+ questionId +"'>\n" +
-                "            <div class='col-12 question-text'>"+ element.question +"</div>\n" +
+                "            <div class='col-12 question-text'>"+ textQuestionCount + element.question +"</div>\n" +
                 "</div>");
             element.variants = shuffledArr(element.variants);
             $.each(element.variants, function (index, variant) {
-                $("#" + questionId).append("" +
-                    "<div class='col-12 ml-5'>\n" +
-                    "  <div class='row align-items-start'>" +
-                    "                <input class='col-auto form-check-input' type='radio' name='q"+ element.id +"' id='q"+ element.id + "v" + variant.id +"'>\n" +
-                    "                <label class='col variant'>"+ variant.text +"</label>\n" +
-                    "</div>" +
-                    "            </div>")
+                $("#" + questionId).append("<div class='col-12'>" +
+                    "   <div class='row custom-control custom-radio ml-2 ml-sm-4 pt-2 pb-2'>\n" +
+                    "        <input type='radio' class='col-auto custom-control-input' name='q"+ element.id +"' id='q"+ element.id + "v" + variant.id +"'>\n" +
+                    "       <label class='col-auto custom-control-label variant' for='q"+ element.id + "v" + variant.id +"'>"+ variant.text +"</label>\n" +
+                    "   </div>" +
+                    "</div>");
             })
         });
         $("#questions").append("        " +
