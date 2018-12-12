@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="css/loadAnimation.css">
 </head>
 <body>
 <main class="container">
@@ -18,13 +20,19 @@
             <div class="col-12 col-sm-9 col-md-7 label-1 text-center">Це невеличкий веб додаток для перевірки знань тестів, Ви можете завантажити фийл
                 з тестами у форматі JSON або власноруч створити його по посиланню нижче.</div>
             <div class="w-50 hr-orange mt-3 mb-3"></div>
-            <label for="JSONFile" class="col-12 label-1 text-center">Будь ласка оберіть сумісний з додатком файл JSON або TXT</label>
-            <input class="col-auto" id="JSONFile" type="file">
+            <div class="w-100"></div>
+            <input class="col-12 inputfile" id="file" type="file">
+            <label for="file" class="col-12 col-sm-auto upload-btn p-2 pl-3 pr-3">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-auto"><img src="img/upload.png"></div>
+                    <div class="col-auto text-center">Завантажити файл</div>
+                </div>
+            </label>
             <div class="w-100"></div>
             <div class="w-50 hr-orange mt-3 mb-3"></div>
-            <div class="col-12 label-1 text-center mt-3 mb-3">або</div>
+            <div class="col-12 label-1 text-center mt-1 mb-3">або</div>
             <div class="w-100"></div>
-            <a href="constructor.html" class="col-auto btn btn-primary mb-5">Створіть його</a>
+            <a href="constructor.html" class="col-12 col-sm-auto btn-orange-secondary p-3 mb-5">Створіть свої тести</a>
             <div class="col-12 mt-3">
                 <div class="row info-container p-3">
                     <div class="col-12 text-center info-header" id="info-btn">Оформлення для сумісного TXT файлу</div>
@@ -46,8 +54,10 @@
             </div>
         </div>
     </div>
+
     <div  id="questions">
     </div>
+
     <div class="mt-20" id="resultContainer">
         <div class="row justify-content-center">
             <div class="col-12 header-1 text-center">Правильних відповідей</div>
@@ -55,22 +65,28 @@
             <div class="col-6 mt-4">
                 <div class="row justify-content-between">
                     <div class="w-100 hr-orange mt-3 mb-3"></div>
-                    <div class="col-12 col-md-auto btn btn-primary mb-2 m-lg-0" id="retry">Спробувати ще</div>
-                    <div class="col-12 col-md-auto btn btn-primary mt-2 m-lg-0" id="choseFile">Вибрати інший файл</div>
+                    <label class="col-auto text-left">Всього питань</label>
+                    <label class="col text-right" id="questionsCountLabel"></label>
+                    <div class="w-100"></div>
+                    <label class="col-auto text-left">Відсоток правильних відповідей</label>
+                    <label class="col text-right" id="correctPercentage"></label>
+                    <div class="w-100 hr-orange mt-3 mb-3"></div>
+                    <div class="col-12 col-md-auto btn-orange-primary p-2 mb-2 m-lg-0" id="retry">Спробувати ще</div>
+                    <div class="col-12 col-md-auto btn-orange-primary p-2 mt-2 m-lg-0" id="choseFile">Вибрати інший файл</div>
                 </div>
             </div>
         </div>
     </div>
 </main>
+
 <script rel="script" src="js/main.js"></script>
     <script type="text/javascript">
-        window.onbeforeunload = confirmExit;
-        function confirmExit()
-        {
+        window.onbeforeunload = function () {
             if ($("input").val()) {
                 return true;
             }
-        }
+
+        };
     </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

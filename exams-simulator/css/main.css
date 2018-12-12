@@ -91,3 +91,73 @@ input[type=radio] {
 #info-container {
     display: none;
 }
+
+
+.inputfile {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.upload-btn {
+    color: black;
+    font-size: 1.3em;
+    font-weight: 500;
+    background: darkorange;
+}
+
+.btn-orange-primary {
+    text-align: center;
+    color: snow;
+    border: 2px solid darkorange;
+    font-weight: 500;
+    font-size: 1em;
+    background: darkorange;
+    border-radius: 5px;
+}
+
+.btn-orange-primary:hover {
+    color: snow;
+    text-decoration: none;
+    background: #c66900;
+    cursor: pointer;
+}
+
+.btn-orange-secondary {
+    text-align: center;
+    border-radius: 5px;
+    color: snow;
+    font-size: 1em;
+    background-color: #1e2027;
+    border: 2px solid darkorange;
+}
+
+.btn-orange-secondary:hover {
+    color: snow;
+    cursor: pointer;
+    background: #2f3340;
+    text-decoration: none;
+}
+
+/*Sweet alert*/
+.swal-button {
+    background-color: #1e2027;
+    border: 2px solid darkorange;
+}
+
+
+.swal-modal {
+    background-color: #1e2027;
+    border: 2px solid darkorange;
+}
+
+.swal-title {
+    color: snow;
+}
+
+.swal-text {
+    color: snow;
+}

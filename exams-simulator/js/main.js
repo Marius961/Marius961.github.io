@@ -1,161 +1,141 @@
-let obj = { questions: []
-};
-let points = 0;
-let animationTime = 150;
+
+let obj = {questions: []},
+    correctAnswers = 0,
+    animationTime = 150,
+    questionsContainer = $("#questions"),
+    fileLoadContainer = $("#fileLoadContainer"),
+    resultContainer = $("#resultContainer"),
+    resultLabel = $("#result"),
+    questionCountLabel = $("#questionsCountLabel"),
+    correctAnswersPercentageLabel = $("#correctPercentage"),
+    loadingContainerId = "loadAnimation";
+
 
 $(document).ready(function () {
 
     function onChange(event) {
+        fadeOutContainer(fileLoadContainer);
+        setTimeout(function () {
+            addLoadingContainer();
+        }, animationTime);
         let reader = new FileReader(),
             fileName = event.target.files[0].name,
             lastIndex = fileName.lastIndexOf('.'),
             type = fileName.substr(lastIndex);
-
         if (type === ".json") {
-            reader.onload = onReaderLoad;
+            reader.onload = parseJSON;
         }
         if (type === ".txt") {
-            reader.onload = parseTextFile;
+            reader.onload = parseTxtToObject;
         }
         reader.readAsText(event.target.files[0]);
     }
 
-    function parseTextFile(event) {
-        let array = event.target.result.split(/\n\s*\n|\r\n\s*\r\n/);
-        for (let i = 0; i < array.length; i++) {
-            if (array[i].trim() !== "") {
-                generateVariants(i, array[i])
-            }
-        }
-        fadeOutContainer("fileLoadContainer");
-        setTimeout(function () {
-            addQuestionsWithVariants(obj);
-        }, animationTime);
-    }
-
-    function onReaderLoad(event){
+    function parseJSON(event){
         obj = JSON.parse(event.target.result);
-        fadeOutContainer("fileLoadContainer");
+        removeLoadingContainer();
         setTimeout(function () {
             addQuestionsWithVariants(obj);
         }, animationTime)
     }
 
-    function addQuestionsWithVariants(data){
-        data.questions = shuffledArr(data.questions);
-        $.each(data.questions, function (index, element) {
-            let questionId = "question" + element.id;
-            let textQuestionCount = +index+1 + ") ";
-            $("#questions").append("" +
-                "<div class='row mt-5 pt-4' id='"+ questionId +"'>\n" +
-                "            <div class='col-12 question-text'>"+ textQuestionCount + element.question +"</div>\n" +
-                "</div>");
-            element.variants = shuffledArr(element.variants);
-            $.each(element.variants, function (index, variant) {
-                $("#" + questionId).append("" +
-                    "<div class='col-12'>" +
-                    "   <div class='row custom-control custom-radio ml-2 ml-sm-4 pt-2 pb-2'>\n" +
-                    "       <input type='radio' class='col-auto custom-control-input ' name='q"+ element.id +"' id='q"+ element.id + "v" + variant.id +"'>\n" +
-                    "       <label class='col-auto custom-control-label variant' for='q"+ element.id + "v" + variant.id +"'>"+ variant.text +"</label>\n" +
-                    "   </div>" +
-                    "</div>");
-            })
-        });
-        $("#questions").append("        " +
-            "<div class=\"row justify-content-center mt-3 mb-3\">\n" +
-            "            <div class=\"col-auto btn btn-primary p-1 mt-3\" id=\"calculateResult\">Завершити</div>\n" +
-            "        </div>");
-        fadeInContainer("questions");
-
-        $("#calculateResult").click(function () {
-            let inputsCount = 0;
-            $('input:checked').each(function (index, element) {
-                let answerId  = $(element).attr("id"),
-                    intQuestionId = answerId.substr(answerId.lastIndexOf('q') + 1, answerId.lastIndexOf('v')-1),
-                    intVariantId = answerId.substr(answerId.lastIndexOf('v') + 1),
-                    correctAnswerId = 0;
-
-                for (let i = 0; i < obj.questions.length; i++) {
-                    if (+obj.questions[i].id === +intQuestionId) {
-                        correctAnswerId = obj.questions[i].answerId;
-                        break
-                    }
-                }
-                if (+intVariantId === +correctAnswerId) {
-                    points++;
-                }
-                inputsCount++;
-            });
-            if (inputsCount === obj.questions.length) {
-                fadeOutContainer("questions");
-                $("#result").append(points);
-                setTimeout(function () {
-                    fadeInContainer("resultContainer");
-                }, animationTime);
-                $("#retry").click(function () {
-                    $('#questions').empty();
-                    addQuestionsWithVariants(obj);
-                    fadeOutContainer("resultContainer");
-                    setTimeout(function () {
-                        fadeInContainer("questions");
-                        $("#result").empty();
-                    }, animationTime);
-                });
-                $("#choseFile").click(function () {
-                    $("#questions").empty();
-                    fadeOutContainer("resultContainer");
-                    setTimeout(function () {
-                        fadeInContainer("fileLoadContainer");
-                    }, animationTime);
-                    $("#JSONFile").val("");
-                    obj = { questions: []
-                    };
-                });
-            } else {
-                alert("Будь ласка дайте відповідь на всі запитання")
-            }
-            points = 0;
-        });
-    }
 
 
-    document.getElementById('JSONFile').addEventListener('change', onChange);
+    document.getElementById('file').addEventListener('change', onChange);
 });
 
 
-//
-function fadeOutContainer(containerId) {
-    $("#" + containerId).fadeOut(animationTime);
-}
-
-function fadeInContainer(containerId) {
-    $("#" + containerId).fadeIn(animationTime);
-}
 
 
-function generateVariants(questionId ,question) {
-    let tempVariants = question.split('\n');
-    let questionText = tempVariants[0];
-    let correctVariantId = 0;
-    let varionts = [];
+$(document).on("click", '#calculateResult' , function () {
+    let inputsCount = 0;
+    $('input:checked').each(function (index, element) {
+        let answerId  = $(element).attr("id"),
+            inputQuestionId = answerId.substr(answerId.lastIndexOf('q') + 1, answerId.lastIndexOf('v')-1),
+            inputVariantId = answerId.substr(answerId.lastIndexOf('v') + 1),
+            correctAnswerId = 0;
+
+        $(obj.questions).each(function (index, question) {
+            if (+question.id === +inputQuestionId)  {
+                correctAnswerId = question.answerId;
+                return false;
+            }
+        });
+
+        if (+inputVariantId === +correctAnswerId) {
+            correctAnswers++;
+        }
+        inputsCount++;
+    });
+    let questionsLength = obj.questions.length;
+    if (inputsCount === questionsLength) {
+        let correctAnswersPercent = (100 / questionsLength) * correctAnswers;
+        fadeOutContainer(questionsContainer);
+        $(resultLabel).append(correctAnswers);
+        $(questionCountLabel).append(obj.questions.length);
+        $(correctAnswersPercentageLabel).append(correctAnswersPercent.toFixed(1));
+        setTimeout(function () {
+            fadeInContainer(resultContainer);
+        }, animationTime);
+    } else {
+        swal({
+            text: "Будь ласка дайте відповідь на всі питання щоб завершити тестування",
+            icon: "warning",
+            button: "Продовжити",
+        });
+    }
+    correctAnswers = 0;
+});
+
+$(document).on("click", "#retry",  function () {
+    $('#questions').empty();
+    addQuestionsWithVariants(obj);
+    fadeOutContainer(resultContainer);
+    setTimeout(function () {
+        fadeInContainer(questionsContainer);
+        $(resultLabel).empty();
+    }, animationTime);
+});
+
+$(document).on("click", "#choseFile", function () {
+    $("#questions").empty();
+    fadeOutContainer(resultContainer);
+    setTimeout(function () {
+        fadeInContainer(fileLoadContainer);
+    }, animationTime);
+    $("#file").val("");
+    obj = { questions: []
+    };
+});
+
+$("#info-btn").click(function () {
+    $("#info-container").slideToggle(animationTime);
+});
+
+function parseQuestionToObject(questionId , question) {
+    let tempVariants = question.split('\n'),
+        questionText = tempVariants[0],
+        correctVariantId = 0,
+        variants = [];
+
     tempVariants.shift();
     for (let i = 0; i < tempVariants.length; i++) {
-        let text= tempVariants[i].trim();
+        let text = tempVariants[i].trim();
         if (text !== "") {
             if (text.substr(0, 1) === '+') {
                 correctVariantId = i;
                 text = text.substr(1);
             }
-            varionts.push({
+            variants.push({
                 id:i,
                 text: text
             })
         }
     }
-    addQuestion(questionId, questionText, correctVariantId, varionts);
+    addQuestionToObject(questionId, questionText, correctVariantId, variants);
 }
 
-function addQuestion(id, questionText,answerId , variants) {
+function addQuestionToObject(id, questionText, answerId , variants) {
     obj.questions.push({
         id: id,
         question:questionText,
@@ -164,12 +144,78 @@ function addQuestion(id, questionText,answerId , variants) {
     });
 }
 
-function shuffledArr(arr) {
-    return arr.sort(function(){
+function shuffledArray(array) {
+    return array.sort(function(){
         return Math.random() - 0.5;
     });
 }
 
-$("#info-btn").click(function () {
-    $("#info-container").slideToggle(animationTime);
-});
+
+
+function parseTxtToObject(event) {
+    let array = event.target.result.split(/\n\s*\n|\r\n\s*\r\n/);
+    for (let i = 0; i < array.length; i++) {
+        if (array[i].trim() !== "") {
+            parseQuestionToObject(i, array[i])
+        }
+    }
+    removeLoadingContainer();
+    setTimeout(function () {
+        addQuestionsWithVariants(obj);
+    }, animationTime)
+}
+
+function addQuestionsWithVariants(data){
+    data.questions = shuffledArray(data.questions);
+    $.each(data.questions, function (index, element) {
+        let questionId = "question" + element.id,
+            questionCount = +index+1 + ") ";
+
+        $("#questions").append("" +
+            "<div class='row mt-5 pt-4' id='"+ questionId +"'>\n" +
+            "            <div class='col-12 question-text'>"+ questionCount + element.question +"</div>\n" +
+            "</div>");
+
+        element.variants = shuffledArray(element.variants);
+        $.each(element.variants, function (index, variant) {
+            let variantId = "q" + element.id + "v" + variant.id;
+            $("#" + questionId).append("" +
+                "<div class='col-12'>" +
+                "   <div class='row custom-control custom-radio ml-2 ml-sm-4 pt-2 pb-2'>\n" +
+                "       <input type='radio' class='col-auto custom-control-input ' name='q"+ element.id +"' id='" + variantId  + "'>\n" +
+                "       <label class='col-auto custom-control-label variant' for='"+ variantId + "'>"+ variant.text +"</label>\n" +
+                "   </div>" +
+                "</div>");
+        })
+    });
+    $("#questions").append("" +
+        "<div class=\"row justify-content-center mt-3 mb-3\">\n" +
+        "   <div class=\"col-auto btn-orange-primary p-2 mt-3\" id='calculateResult'>Завершити</div>\n" +
+        "</div>");
+    fadeInContainer(questionsContainer);
+}
+
+
+function fadeOutContainer(container) {
+    $(container).fadeOut(animationTime);
+}
+
+function fadeInContainer(container) {
+    $(container).fadeIn(animationTime);
+}
+
+function addLoadingContainer() {
+    let loadingContainer = "<div class=\"row justify-content-center text-center\" id='"+ loadingContainerId +"'>\n" +
+        "        <div class=\"col-auto lds-hourglass\"></div>\n" +
+        "        <div class=\"col-12 text-center loading-text\">Завантаження</div>\n" +
+        "    </div>";
+    $(".container").append(loadingContainer);
+    $("#" + loadingContainerId).fadeIn(animationTime).css("display","flex");
+}
+
+function removeLoadingContainer() {
+    $("#" + loadingContainerId).fadeOut(animationTime);
+    setTimeout(function () {
+        $("#" + loadingContainerId).remove();
+    }, animationTime)
+}
