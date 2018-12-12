@@ -73,7 +73,7 @@ $(document).on("click", '#calculateResult' , function () {
         fadeOutContainer(questionsContainer);
         $(resultLabel).append(correctAnswers);
         $(questionCountLabel).append(obj.questions.length);
-        $(correctAnswersPercentageLabel).append(correctAnswersPercent.toFixed(1));
+        $(correctAnswersPercentageLabel).append(correctAnswersPercent.toFixed(1) + "%");
         setTimeout(function () {
             fadeInContainer(resultContainer);
         }, animationTime);
@@ -94,6 +94,8 @@ $(document).on("click", "#retry",  function () {
     setTimeout(function () {
         fadeInContainer(questionsContainer);
         $(resultLabel).empty();
+        $(questionCountLabel).empty();
+        $(correctAnswersPercentageLabel).empty();
     }, animationTime);
 });
 
