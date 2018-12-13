@@ -221,3 +221,7 @@ function removeLoadingContainer() {
         $("#" + loadingContainerId).remove();
     }, animationTime)
 }
+
+$("#menuBtn").click(function () {
+    $("#menuContent").slideToggle(animationTime);
+});

@@ -2,19 +2,49 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Exams Simulator - Головна</title>
-    <link rel="stylesheet" href="css/main.css">
     <meta name="theme-color" content="#272C35">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Exams Simulator - Головна</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/loadAnimation.css">
+    <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" href="css/loadAnimation.css">
 </head>
 <body>
+<header class="w-100 nab-bg-container">
+    <div class="container">
+        <nav class="row nav-bg align-items-center pt-2 pb-2" id="navPanel">
+            <div class="col-12 col-lg-auto d-lg-block" id="menuContent">
+                <div class="row pr-3 pl-3">
+                    <div class="col-12 col-lg-auto p-1 pl-2 pr-2 ">
+                        <a class="nav-link-1 active" href="home.html">Головна</a>
+                    </div>
+                    <div class="col-12 col-lg-auto p-1 pl-2 pr-2 ">
+                        <a class="nav-link-1" href="constructor.html">Конструктор тестів</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 col-sm-auto" id="menuBtn"><img src="img/menu.png" width="24" height="24"></div>
+            <div class="col">
+                <div class="row justify-content-end align-items-center">
+                    <div class="col-auto text-center nav-item-1" id="letItSnowBtn">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col-auto p-1">
+                                <img src="img/ice-crystal.png" width="18" height="18">
+                            </div>
+                            <div class="col-auto snow-label pt-1 d-none d-sm-block"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
 <main class="container">
-    <div class="mt-20" id="fileLoadContainer">
+    <div class="mt-container" id="fileLoadContainer">
         <div class="row justify-content-center container-box p-3">
             <div class="col-12 header-1 text-center">Вітаємо у Exams Simulator</div>
             <div class="col-12 col-sm-9 col-md-7 label-1 text-center">Це невеличкий веб додаток для перевірки знань тестів, Ви можете завантажити фийл
@@ -38,7 +68,7 @@
                     <div class="col-12 text-center info-header" id="info-btn">Оформлення для сумісного TXT файлу</div>
                     <div class="col-12" id="info-container">
                         <div class="row justify-content-center">
-                            <div class="col-12 text-center">Примітка: між запитаннями повинно бути 2 пустих рядки</div>
+                            <div class="col-12 text-center">Примітка: між запитаннями повинно бути 2 пустих рядки, "_" - пустий рядок</div>
                             <div class="w-50 hr-orange mt-3 mb-3"></div>
                         </div>
                         <div class="row">
@@ -47,7 +77,9 @@
                             <div class="col-12">&ensp;Другий варіант відповіді</div>
                             <div class="col-12">&ensp;Третій варіант відповіді</div>
                             <div class="col-12">&ensp;+Четвертий варіант відповіді правильний, позначається за допомогою знака "+"</div>
-                            <div class="col-12">&ensp;....</div>
+                            <div class="col-12">_</div>
+                            <div class="col-12">_</div>
+                            <div class="col-12">&ensp;...</div>
                         </div>
                     </div>
                 </div>
@@ -58,7 +90,7 @@
     <div  id="questions">
     </div>
 
-    <div class="mt-20" id="resultContainer">
+    <div class="mt-container" id="resultContainer">
         <div class="row justify-content-center">
             <div class="col-12 header-1 text-center">Правильних відповідей</div>
             <label class="col-12 result text-center" id="result"></label>
@@ -86,16 +118,17 @@
         </div>
     </div>
 </main>
-
+<script src="js/snow.js"></script>
 <script rel="script" src="js/main.js"></script>
-    <script type="text/javascript">
-        window.onbeforeunload = function () {
-            if ($("input").val()) {
-                return true;
-            }
+<script src="js/snowFall.js"></script>
+<script type="text/javascript">
+    window.onbeforeunload = function () {
+        if ($("input").val()) {
+            return true;
+        }
 
-        };
-    </script>
+    };
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>

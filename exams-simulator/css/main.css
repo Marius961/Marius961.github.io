@@ -15,10 +15,6 @@ html > body {
     font-size: 1em;
 }
 
-.mt-20 {
-    margin-top: 5%;
-}
-
 
 .hr-orange {
     height: 1px;
@@ -55,10 +51,6 @@ input[type=radio] {
     width: 20px;
 }
 
-.container-box {
-    background: #2d2f39;
-    border: 2px solid darkorange;
-}
 
 .download-btn {
     background: green;
@@ -89,7 +81,7 @@ input[type=radio] {
 }
 
 #info-container {
-    display: none;
+    /*display: none;*/
 }
 
 
@@ -165,4 +157,40 @@ input[type=radio] {
 
 .swal-text {
     color: snow;
+}
+
+
+/*snow*/
+
+.snow-label {
+    font-size: 0.7em;
+}
+
+.snow-label-disabled {
+    color: #bfbfbf;
+}
+
+
+@media all and (min-width: 0px) {
+
+}
+
+@media all and (min-width: 576px) {
+    .mt-container {
+        margin-top: 5%;
+    }
+    .container-box {
+        background: #2d2f39;
+        border: 2px solid darkorange;
+    }
+}
+
+@media screen and (min-width: 768px) {
+}
+
+@media screen and (min-width: 992px) {
+
+}
+
+@media all and (min-width: 1200px) {
 }
