@@ -169,10 +169,10 @@ function parseTxtToObject(event) {
             parseQuestionToObject(i, array[i])
         }
     }
-    // removeLoadingContainer();
-    // setTimeout(function () {
-    //     addQuestionsWithVariants(obj);
-    // }, animationTime)
+    removeLoadingContainer();
+    setTimeout(function () {
+        addQuestionsWithVariants(obj);
+    }, animationTime)
 }
 
 function addQuestionsWithVariants(data){
