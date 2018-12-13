@@ -35,6 +35,19 @@ html > body {
     color: #ededed;
 }
 
+.variant-2 {
+    border: 1px solid #2f313a;
+}
+
+
+
+.selected-variant {
+    border: 1px solid darkorange;
+    background: #292b34;
+}
+
+
+
 #questions, #resultContainer {
     display: none;
 }

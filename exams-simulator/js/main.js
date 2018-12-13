@@ -110,6 +110,14 @@ $(document).on("click", "#choseFile", function () {
     };
 });
 
+$(document).on("click", "input:checked", function () {
+    let name = $(this).attr("name");
+    $("input[name=" + name + "]").each(function (index, element) {
+        $(element.parentNode).removeClass("selected-variant");
+    });
+    $(this.parentNode).addClass("selected-variant")
+});
+
 $("#info-btn").click(function () {
     $("#info-container").slideToggle(animationTime);
 });
@@ -183,9 +191,9 @@ function addQuestionsWithVariants(data){
             let variantId = "q" + element.id + "v" + variant.id;
             $("#" + questionId).append("" +
                 "<div class='col-12'>" +
-                "   <div class='row custom-control custom-radio ml-2 ml-sm-4 pt-2 pb-2'>\n" +
+                "   <div class='row custom-control custom-radio ml-sm-4 pl-5 pt-2 pb-2 variant-2'>\n" +
                 "       <input type='radio' class='col-auto custom-control-input ' name='q"+ element.id +"' id='" + variantId  + "'>\n" +
-                "       <label class='col-auto custom-control-label variant' for='"+ variantId + "'>"+ variant.text +"</label>\n" +
+                "       <label class='col-12 custom-control-label variant' for='"+ variantId + "'>"+ variant.text +"</label>\n" +
                 "   </div>" +
                 "</div>");
         })
