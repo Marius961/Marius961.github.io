@@ -169,10 +169,10 @@ function parseTxtToObject(event) {
             parseQuestionToObject(i, array[i])
         }
     }
-    removeLoadingContainer();
-    setTimeout(function () {
-        addQuestionsWithVariants(obj);
-    }, animationTime)
+    // removeLoadingContainer();
+    // setTimeout(function () {
+    //     addQuestionsWithVariants(obj);
+    // }, animationTime)
 }
 
 function addQuestionsWithVariants(data){
@@ -219,7 +219,7 @@ function addLoadingContainer() {
         "        <div class=\"col-auto lds-hourglass\"></div>\n" +
         "        <div class=\"col-12 text-center loading-text\">Завантаження</div>\n" +
         "    </div>";
-    $(".container").append(loadingContainer);
+    $("main").append(loadingContainer);
     $("#" + loadingContainerId).fadeIn(animationTime).css("display","flex");
 }
 
