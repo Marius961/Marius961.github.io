@@ -39,6 +39,15 @@ html > body {
     border: 1px solid #2f313a;
 }
 
+.correct-answer {
+    border: 1px solid darkgreen;
+    background: green;
+}
+
+.wrong-answer {
+    border: 1px solid darkred;
+    background: rgba(255, 0, 0, 0.18);
+}
 
 
 .selected-variant {
@@ -136,7 +145,7 @@ input[type=radio] {
     border-radius: 5px;
     color: snow;
     font-size: 1em;
-    background-color: #1e2027;
+    background-color: #2a2c33;
     border: 2px solid darkorange;
 }
 
@@ -147,10 +156,21 @@ input[type=radio] {
     text-decoration: none;
 }
 
-.result-label-1 {
-    font-weight: 300;
-    font-size: 1.3em;
+.btn-orange-secondary-borderLess {
+    text-align: center;
+    border-radius: 5px;
+    color: snow;
+    font-size: 1em;
+    background-color: #2a2c33;
 }
+
+.btn-orange-secondary-borderLess:hover {
+    color: snow;
+    cursor: pointer;
+    background: #2f3340;
+    text-decoration: none;
+}
+
 
 /*Sweet alert*/
 .swal-button {
@@ -206,4 +226,34 @@ input[type=radio] {
 }
 
 @media all and (min-width: 1200px) {
+}
+
+#testParams, #wrongAnswersContainer {
+    display: none;
+}
+
+.params-label {
+    color: darkorange;
+}
+
+.params-label:hover {
+    background: #222330;
+    border-radius: 4px;
+}
+
+
+.result-label-1 {
+    font-weight: 300;
+    font-size: 1.5em;
+}
+
+.result-type-text {
+    font-size: 0.8em;
+}
+
+.result-box {
+    border-radius: 0.1em;
+    background: #2d2f39;
+    display: flex;
+    height: 100%;
 }

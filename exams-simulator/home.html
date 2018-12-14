@@ -59,10 +59,36 @@
                 </div>
             </label>
             <div class="w-100"></div>
+            <label class="col-auto params-label">Додаткові параметри</label>
+            <div class="w-100"></div>
+            <div class="col-auto" id="testParams">
+                <div class="row">
+                    <div class="col-12  mt-2 col-md-4 m-md-0">
+                        <div class="row custom-control custom-checkbox text-center justify-content-center">
+                            <input type="checkbox" class="col-auto custom-control-input " id="expressTest">
+                            <label class="col-auto custom-control-label p-0 pr-2" for="expressTest" data-toggle="tooltip" data-placement="bottom" title="30 тестів (у випадку якщо загальна кількість більше 30)">Експрес тест</label>
+                        </div>
+                    </div>
+                    <div class="col-12  mt-2 col-md-4 m-md-0">
+                        <div class="row custom-control custom-checkbox text-center justify-content-center">
+                            <input type="checkbox" class="col-auto custom-control-input " checked id="shuffleQuestions">
+                            <label class="col-auto custom-control-label p-0 pr-2" for="shuffleQuestions" data-toggle="tooltip" data-placement="bottom" title="Перемішати питання">Перемішати питання</label>
+                        </div>
+                    </div>
+                    <div class="col-12  mt-2 col-md-4 m-md-0">
+                        <div class="row custom-control custom-checkbox text-center justify-content-center">
+                            <input type="checkbox" class="col-auto custom-control-input" checked id="shuffleVariants">
+                            <label class="col-auto custom-control-label p-0 pr-2" for="shuffleVariants" data-toggle="tooltip" data-placement="bottom" title="Перемішати відповіді">Перемішати відповіді</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100"></div>
             <div class="w-50 hr-orange mt-3 mb-3"></div>
             <div class="col-12 label-1 text-center mt-1 mb-3">або</div>
             <div class="w-100"></div>
             <a href="constructor.html" class="col-12 col-sm-auto btn-orange-secondary p-3 mb-5">Створіть свої тести</a>
+
             <div class="col-12 mt-3">
                 <div class="row info-container p-3">
                     <div class="col-12 text-center info-header" id="info-btn">Оформлення для сумісного TXT файлу</div>
@@ -94,25 +120,37 @@
         <div class="row justify-content-center">
             <div class="col-12 header-1 text-center">Правильних відповідей</div>
             <label class="col-12 result text-center" id="result"></label>
-            <div class="col-6 mt-4">
+            <div class="col-11 col-md-8 mt-4">
+                <div class="row" id="logContainer">
+
+                    <div class="col-12" id="wrongAnswersContainer">
+
+                    </div>
+                </div>
                 <div class="row justify-content-between">
                     <div class="w-100 hr-orange mt-3 mb-3"></div>
-                    <div class="col-12">
-                        <div class="row align-item-end">
-                            <label class="col-12 col-sm-auto text-center text-sm-left">Всього питань</label>
-                            <label class="col-12 col-sm text-center text-sm-right result-label-1" id="questionsCountLabel"></label>
+                    <div class="col-6 col-md-4">
+                        <div class="row justify-content-center result-box p-1 mr-md-1">
+                            <label class="col-12 text-center result-type-text">Всього питань</label>
+                            <label class="col-12 text-center result-label-1 align-self-end" id="questionsCountLabel"></label>
                         </div>
                     </div>
-                    <div class="w-100 mt-2 mb-2 m-sm-0"></div>
-                    <div class="col-12">
-                        <div class="row align-items-end">
-                            <label class="col-12 col-sm-auto text-center text-sm-left">Відсоток правильних відповідей</label>
-                            <label class="col-12 col-sm text-center text-sm-right result-label-1" id="correctPercentage"></label>
+                    <div class="col-6 col-md-4">
+                        <div class="row justify-content-center result-box p-1">
+                            <label class="col-12 text-center result-type-text">Відсоток правильних відповідей</label>
+                            <label class="col-12 text-center result-label-1 align-self-end" id="correctPercentage"></label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="row justify-content-center result-box p-1 mt-1 mt-md-0 ml-md-1">
+                            <label class="col-12 text-center result-type-text">Оцінка</label>
+                            <label class="col-12 text-center result-label-1 align-self-end" id="assessmentLabel"></label>
                         </div>
                     </div>
                     <div class="w-100 hr-orange mt-3 mb-3"></div>
                     <div class="col-12 col-md-auto btn-orange-primary p-2 mb-2 m-lg-0" id="retry">Спробувати ще</div>
                     <div class="col-12 col-md-auto btn-orange-primary p-2 mt-2 m-lg-0" id="choseFile">Вибрати інший файл</div>
+                    <div class="w-100 mb-5"></div>
                 </div>
             </div>
         </div>
@@ -120,7 +158,7 @@
 </main>
 <script src="js/snow.js"></script>
 <script rel="script" src="js/main.js"></script>
-<script src="js/snowFall.js"></script>
+<script src="js/jquery.flurry.js"></script>
 <script type="text/javascript">
     window.onbeforeunload = function () {
         if ($("input").val()) {

@@ -8,7 +8,11 @@ let obj = {questions: []},
     resultLabel = $("#result"),
     questionCountLabel = $("#questionsCountLabel"),
     correctAnswersPercentageLabel = $("#correctPercentage"),
-    loadingContainerId = "loadAnimation";
+    assesssmentLabel = $("#assessmentLabel"),
+    loadingContainerId = "loadAnimation",
+    correctVariantClassName = "correct-answer",
+    wrongVariantClassName = "wrong-answer",
+    wrongAnswersBtnText = "Показати неправильні відповіді";
 
 
 $(document).ready(function () {
@@ -27,6 +31,16 @@ $(document).ready(function () {
         }
         if (type === ".txt") {
             reader.onload = parseTxtToObject;
+        } else {
+            swal({
+                title: "Формат файлу не підтримується!",
+                text: "Будь ласка оберіть файл у форматі TXT або JSON",
+                icon: "warning",
+                button: "ОК",
+            });
+            removeLoadingContainer();
+            $("#file").val();
+            fadeInContainer(fileLoadContainer);
         }
         reader.readAsText(event.target.files[0]);
     }
@@ -48,42 +62,49 @@ $(document).ready(function () {
 
 
 $(document).on("click", '#calculateResult' , function () {
-    let inputsCount = 0;
-    $('input:checked').each(function (index, element) {
-        let answerId  = $(element).attr("id"),
-            inputQuestionId = answerId.substr(answerId.lastIndexOf('q') + 1, answerId.lastIndexOf('v')-1),
-            inputVariantId = answerId.substr(answerId.lastIndexOf('v') + 1),
-            correctAnswerId = 0;
-
-        $(obj.questions).each(function (index, question) {
-            if (+question.id === +inputQuestionId)  {
-                correctAnswerId = question.answerId;
-                return false;
-            }
-        });
-
-        if (+inputVariantId === +correctAnswerId) {
-            correctAnswers++;
-        }
-        inputsCount++;
-    });
+    let inputs = $('input[type=radio]:checked');
     let questionsLength = obj.questions.length;
-    if (inputsCount === questionsLength) {
+    if (inputs.length === questionsLength) {
+        let wrongAnswersCount = 0;
+        $(inputs).each(function (index, element) {
+            let answerId  = $(element).attr("id"),
+                inputQuestionId = answerId.substr(answerId.lastIndexOf('q') + 1, answerId.lastIndexOf('v')-1),
+                inputVariantId = answerId.substr(answerId.lastIndexOf('v') + 1),
+                correctAnswerId = 0;
+            $(obj.questions).each(function (index, question) {
+                if (+question.id === +inputQuestionId)  {
+                    correctAnswerId = question.answerId;
+                    if (+inputVariantId === +correctAnswerId) {
+                        correctAnswers++;
+                    } else {
+                        wrongAnswersCount++;
+                        logQuestion(question, inputVariantId, correctAnswerId);
+                    }
+                    return false;
+                }
+            });
+        });
         let correctAnswersPercent = (100 / questionsLength) * correctAnswers;
         fadeOutContainer(questionsContainer);
         $(resultLabel).append(correctAnswers);
         $(questionCountLabel).append(obj.questions.length);
         $(correctAnswersPercentageLabel).append(correctAnswersPercent.toFixed(1) + "%");
+        $(assesssmentLabel).append(calculateAssessment(correctAnswersPercent.toFixed(1)));
+        if (wrongAnswersCount !== 0) {
+            $("#logContainer").prepend("<div class='col-12 btn-orange-secondary-borderLess p-2' id='wrongAnswersBtn'>"+ wrongAnswersBtnText +
+                " (" + wrongAnswersCount + ")</div>")
+        }
         setTimeout(function () {
             fadeInContainer(resultContainer);
         }, animationTime);
-    } else {
+    }  else {
         swal({
             text: "Будь ласка дайте відповідь на всі питання щоб завершити тестування",
             icon: "warning",
             button: "Продовжити",
         });
     }
+
     correctAnswers = 0;
 });
 
@@ -92,10 +113,8 @@ $(document).on("click", "#retry",  function () {
     addQuestionsWithVariants(obj);
     fadeOutContainer(resultContainer);
     setTimeout(function () {
+        clearData();
         fadeInContainer(questionsContainer);
-        $(resultLabel).empty();
-        $(questionCountLabel).empty();
-        $(correctAnswersPercentageLabel).empty();
     }, animationTime);
 });
 
@@ -103,6 +122,7 @@ $(document).on("click", "#choseFile", function () {
     $("#questions").empty();
     fadeOutContainer(resultContainer);
     setTimeout(function () {
+        clearData();
         fadeInContainer(fileLoadContainer);
     }, animationTime);
     $("#file").val("");
@@ -110,7 +130,33 @@ $(document).on("click", "#choseFile", function () {
     };
 });
 
-$(document).on("click", "input:checked", function () {
+function clearData() {
+    $(resultLabel).empty();
+    $(questionCountLabel).empty();
+    $(assesssmentLabel).empty();
+    $(correctAnswersPercentageLabel).empty();
+    $("#wrongAnswersContainer").empty();
+    $("#wrongAnswersBtn").remove();
+}
+
+function calculateAssessment(percents) {
+    if (percents < 50) return "2";
+    else if (percents >= 50 && percents < 56) return "3 (достатньо)";
+    else if (percents >= 56 && percents < 63) return "3";
+    else if (percents >= 63 && percents < 80) return "4 (добре)";
+    else if (percents >= 80 && percents < 88) return "4 (дуже добре)";
+    else if (percents >= 88) return "5 відмінно";
+}
+
+$(document).on("click", ".params-label", function () {
+    $("#testParams").slideToggle(animationTime);
+});
+
+$(document).on("click", "#wrongAnswersBtn", function () {
+    $("#wrongAnswersContainer").slideToggle(animationTime);
+});
+
+$(document).on("click", "input[type=radio]", function () {
     let name = $(this).attr("name");
     $("input[name=" + name + "]").each(function (index, element) {
         $(element.parentNode).removeClass("selected-variant");
@@ -176,7 +222,12 @@ function parseTxtToObject(event) {
 }
 
 function addQuestionsWithVariants(data){
-    data.questions = shuffledArray(data.questions);
+    if ($("#shuffleQuestions").is(":checked"))  {
+        data.questions = shuffledArray(data.questions);
+    }
+    if ($("#expressTest").is(":checked") && data.questions.length > 30) {
+        data.questions.length = 30;
+    }
     $.each(data.questions, function (index, element) {
         let questionId = "question" + element.id,
             questionCount = +index+1 + ") ";
@@ -186,13 +237,15 @@ function addQuestionsWithVariants(data){
             "            <div class='col-12 question-text'>"+ questionCount + element.question +"</div>\n" +
             "</div>");
 
-        element.variants = shuffledArray(element.variants);
+        if ($("#shuffleVariants").is(":checked"))  {
+            element.variants = shuffledArray(element.variants);
+        }
         $.each(element.variants, function (index, variant) {
             let variantId = "q" + element.id + "v" + variant.id;
             $("#" + questionId).append("" +
                 "<div class='col-12'>" +
                 "   <div class='row custom-control custom-radio ml-sm-4 pl-5 pt-2 pb-2 variant-2'>\n" +
-                "       <input type='radio' class='col-auto custom-control-input ' name='q"+ element.id +"' id='" + variantId  + "'>\n" +
+                "       <input type='radio' class='col-auto custom-control-input' name='q"+ element.id +"' id='" + variantId  + "'>\n" +
                 "       <label class='col-12 custom-control-label variant' for='"+ variantId + "'>"+ variant.text +"</label>\n" +
                 "   </div>" +
                 "</div>");
@@ -212,6 +265,13 @@ function fadeOutContainer(container) {
 
 function fadeInContainer(container) {
     $(container).fadeIn(animationTime);
+    if (JSON.parse(localStorage.getItem('autoSnowFall'))){
+        //
+        //snow
+        //
+        stopSnow();
+        startSnow();
+    }
 }
 
 function addLoadingContainer() {
@@ -230,6 +290,36 @@ function removeLoadingContainer() {
     }, animationTime)
 }
 
+function logQuestion(elem, selectedVariantId, correctVariantId) {
+    let logAnswerId = "la" + elem.id;
+    $("#wrongAnswersContainer").append("<div class=\"row mt-1 pt-4\" id='"+ logAnswerId +"'>\n" +
+        "<div class=\"col-12 question-text\">"+ elem.question +"</div>\n" +
+        "</div>");
+    let className = "";
+    $(elem.variants).each(function (index, element) {
+        if (+element.id === +correctVariantId) {
+            className = correctVariantClassName;
+        } else if (+element.id === +selectedVariantId) {
+            className = wrongVariantClassName;
+        } else {
+            className = "";
+        }
+        $("#" + logAnswerId).append("" +
+            "<div class='col-12'>\n" +
+            "   <div class='row ml-sm-4 pl-5 pt-2 pb-2 variant-2 " + className + "'>\n" +
+            "       <label class='col-12 variant'>"+ element.text +"</label>\n" +
+            "   </div>\n" +
+            "</div>")
+    });
+}
+
 $("#menuBtn").click(function () {
     $("#menuContent").slideToggle(animationTime);
 });
+
+//
+// enabled bootstrap tooltips
+//
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
