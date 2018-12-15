@@ -6,20 +6,20 @@ var w = c.width = window.innerWidth,
     h = c.height = window.innerHeight;
 
 function startSnowFall() {
-    stopSnowy = false;
+    snowFallStop = false;
     Snowy();
     func.clearRect(0, 0, w, h);
 }
 
 function stopSnowFall() {
-    stopSnowy = true;
+    snowFallStop = true;
     arr = [];
     func.clearRect(0, 0, w, h);
 }
 
 var snow, arr = [];
-let stopSnowy = false;
-
+let freezeSnow = false;
+let snowFallStop = false;
 
 
 
@@ -39,25 +39,43 @@ function Snowy() {
     }
     go();
     function go(){
-        if (!stopSnowy) {
+        if (!snowFallStop) {
             window.requestAnimationFrame(go);
-            func.clearRect(0, 0, w, h);
-            func.fill();
-            for (var i = 0; i < arr.length; ++i) {
-                f = arr[i];
-                f.t += .05;
-                f.t = f.t >= Math.PI * 2 ? 0 : f.t;
-                f.y += f.sp;
-                f.x += Math.sin(f.t * tsc) * (f.sz * .3);
-                if (f.y > h + 50) f.y = -10 - Math.random() * mv;
-                if (f.x > w + mv) f.x = - mv;
-                if (f.x < - mv) f.x = w + mv;
-                f.draw();}
+            if (!freezeSnow) {
+                func.clearRect(0, 0, w, h);
+                func.fill();
+                for (var i = 0; i < arr.length; ++i) {
+                    f = arr[i];
+                    f.t += .05;
+                    f.t = f.t >= Math.PI * 2 ? 0 : f.t;
+                    f.y += f.sp;
+                    f.x += Math.sin(f.t * tsc) * (f.sz * .3);
+                    if (f.y > h + 50) f.y = -10 - Math.random() * mv;
+                    if (f.x > w + mv) f.x = - mv;
+                    if (f.x < - mv) f.x = w + mv;
+                    f.draw();}
+            }
         } else {
             arr = [];
         }
 
     }
+
+    $(window).on("touchstart", function () {
+        freezeSnow = true;
+    });
+
+    $(window).on("touchend", function () {
+        freezeSnow = false;
+    });
+
+    $(window).blur(function(){
+        freezeSnow = true;
+    });
+    $(window).focus(function(){
+        freezeSnow = false;
+    });
+
     function Flake() {
         this.draw = function() {
             this.g = func.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.sz);
@@ -70,9 +88,10 @@ function Snowy() {
             func.fill();}
     }
 }
-/*________________________________________*/
+
+
 window.addEventListener('resize', function(){
-    if (!stopSnowy) {
+    if (!snowFallStop) {
         c.style.width = window.innerWidth + "px";
         setTimeout(function () {
             c.style.height = window.innerHeight + "px";

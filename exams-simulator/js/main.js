@@ -269,7 +269,7 @@ function fadeInContainer(container) {
     //     //
     //     //snow
     //     //
-    //     stopSnowy();
+    //     freezeSnow();
     //     startSnow();
     // }
 }
