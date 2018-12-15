@@ -42,8 +42,6 @@ function Snowy() {
         if (!stopSnowy) {
             window.requestAnimationFrame(go);
             func.clearRect(0, 0, w, h);
-
-            func.fillRect(0, 0, w, h);
             func.fill();
             for (var i = 0; i < arr.length; ++i) {
                 f = arr[i];
@@ -58,6 +56,7 @@ function Snowy() {
         } else {
             arr = [];
         }
+
     }
     function Flake() {
         this.draw = function() {
@@ -70,10 +69,14 @@ function Snowy() {
             func.arc(this.x, this.y, this.sz, 0, Math.PI * 2, true);
             func.fill();}
     }
-    /*________________________________________*/
-    $(window).resize(function () {
-        c.width = w = window.innerWidth;
-        c.height = h = window.innerHeight;
-    });
 }
+/*________________________________________*/
+window.addEventListener('resize', function(){
+    if (!stopSnowy) {
+        c.style.width = window.innerWidth + "px";
+        setTimeout(function () {
+            c.style.height = window.innerHeight + "px";
+        }, 0);
+    }
+}, false);
 
