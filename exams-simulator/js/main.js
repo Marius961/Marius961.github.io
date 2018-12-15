@@ -265,13 +265,13 @@ function fadeOutContainer(container) {
 
 function fadeInContainer(container) {
     $(container).fadeIn(animationTime);
-    if (JSON.parse(localStorage.getItem('autoSnowFall'))){
-        //
-        //snow
-        //
-        stopSnow();
-        startSnow();
-    }
+    // if (JSON.parse(localStorage.getItem('autoSnowFall'))){
+    //     //
+    //     //snow
+    //     //
+    //     stopSnowy();
+    //     startSnow();
+    // }
 }
 
 function addLoadingContainer() {
@@ -319,7 +319,7 @@ $("#menuBtn").click(function () {
 
 //
 // enabled bootstrap tooltips
-//
+
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
