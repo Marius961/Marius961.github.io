@@ -264,14 +264,8 @@ function fadeOutContainer(container) {
 }
 
 function fadeInContainer(container) {
+    $('html, body').animate({scrollTop: 0}, 800);
     $(container).fadeIn(animationTime);
-    // if (JSON.parse(localStorage.getItem('autoSnowFall'))){
-    //     //
-    //     //snow
-    //     //
-    //     freezeSnow();
-    //     startSnow();
-    // }
 }
 
 function addLoadingContainer() {

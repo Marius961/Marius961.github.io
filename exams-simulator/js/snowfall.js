@@ -1,6 +1,6 @@
 $("body").prepend("<canvas id='canv' style='position: fixed;z-index: 99999; pointer-events: none'></canvas>");
 var c = $("#canv")[0];
-let func = c.getContext("2d");
+let renderer = c.getContext("2d");
 
 var w = c.width = window.innerWidth,
     h = c.height = window.innerHeight;
@@ -8,13 +8,13 @@ var w = c.width = window.innerWidth,
 function startSnowFall() {
     snowFallStop = false;
     Snowy();
-    func.clearRect(0, 0, w, h);
+    renderer.clearRect(0, 0, w, h);
 }
 
 function stopSnowFall() {
     snowFallStop = true;
     arr = [];
-    func.clearRect(0, 0, w, h);
+    renderer.clearRect(0, 0, w, h);
 }
 
 var snow, arr = [];
@@ -42,8 +42,8 @@ function Snowy() {
         if (!snowFallStop) {
             window.requestAnimationFrame(go);
             if (!freezeSnow) {
-                func.clearRect(0, 0, w, h);
-                func.fill();
+                renderer.clearRect(0, 0, w, h);
+                renderer.fill();
                 for (var i = 0; i < arr.length; ++i) {
                     f = arr[i];
                     f.t += .05;
@@ -78,14 +78,14 @@ function Snowy() {
 
     function Flake() {
         this.draw = function() {
-            this.g = func.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.sz);
+            this.g = renderer.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.sz);
             this.g.addColorStop(0, 'hsla(255,255%,255%,1)');
             this.g.addColorStop(1, 'hsla(255,255%,255%,0)');
-            func.moveTo(this.x, this.y);
-            func.fillStyle = this.g;
-            func.beginPath();
-            func.arc(this.x, this.y, this.sz, 0, Math.PI * 2, true);
-            func.fill();}
+            renderer.moveTo(this.x, this.y);
+            renderer.fillStyle = this.g;
+            renderer.beginPath();
+            renderer.arc(this.x, this.y, this.sz, 0, Math.PI * 2, true);
+            renderer.fill();}
     }
 }
 
