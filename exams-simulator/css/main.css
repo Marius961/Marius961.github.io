@@ -2,7 +2,7 @@ html > body {
     font-family: "Roboto", serif;
     background: #353740;
     color: snow;
-    transform: 150ms;
+    transition: 150ms;
 }
 
 .header-1 {
@@ -14,7 +14,6 @@ html > body {
     font-weight: 400;
     font-size: 1em;
 }
-
 
 .hr-orange {
     height: 1px;
@@ -29,13 +28,13 @@ html > body {
     color: #ededed;
 }
 
-.variant {
+.option-1 {
     font-size: 1.3em;
     font-weight: 300;
     color: #ededed;
 }
 
-.variant-2 {
+.option-2 {
     border: 1px solid #2f313a;
 }
 
@@ -49,13 +48,10 @@ html > body {
     background: rgba(255, 0, 0, 0.18);
 }
 
-
-.selected-variant {
+.selected-option {
     border: 1px solid darkorange;
     background: #292b34;
 }
-
-
 
 #questions, #resultContainer {
     display: none;
@@ -73,7 +69,6 @@ input[type=radio] {
     width: 20px;
 }
 
-
 .download-btn {
     background: green;
     font-weight: 500;
@@ -88,7 +83,7 @@ input[type=radio] {
 
 .info-container {
     background: #1e2027;
- }
+}
 
 .info-header {
     font-weight: 300;
@@ -103,11 +98,10 @@ input[type=radio] {
 }
 
 #info-container {
-    /*display: none;*/
+    display: none;
 }
 
-
-.inputfile {
+.inputFile {
     width: 0;
     height: 0;
     opacity: 0;
@@ -172,7 +166,9 @@ input[type=radio] {
 }
 
 
-/*Sweet alert*/
+/*
+    *custom styles for Sweet alert
+*/
 .swal-button {
     background-color: #1e2027;
     border: 2px solid darkorange;
@@ -193,19 +189,15 @@ input[type=radio] {
 }
 
 
-/*snow*/
-
+/*
+    *styles for snow
+*/
 .snow-label {
     font-size: 0.7em;
 }
 
 .snow-label-disabled {
     color: #bfbfbf;
-}
-
-
-@media all and (min-width: 0px) {
-
 }
 
 @media all and (min-width: 576px) {
@@ -218,17 +210,7 @@ input[type=radio] {
     }
 }
 
-@media screen and (min-width: 768px) {
-}
-
-@media screen and (min-width: 992px) {
-
-}
-
-@media all and (min-width: 1200px) {
-}
-
-#testParams, #wrongAnswersContainer {
+#testParams, #wrongAnswersContainer, #generateFile {
     display: none;
 }
 
@@ -240,7 +222,6 @@ input[type=radio] {
     background: #222330;
     border-radius: 4px;
 }
-
 
 .result-label-1 {
     font-weight: 300;
