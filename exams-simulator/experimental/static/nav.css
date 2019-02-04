@@ -1,0 +1,43 @@
+.nav-bg {
+    background: #1e2027;
+    color: snow;
+    font-family: "Roboto", serif;
+    font-size: 1.3em;
+}
+
+.nab-bg-container {
+    background: #1e2027;
+}
+
+.nav-link-1, .nav-link-1:hover {
+    text-decoration: none;
+    color: #b7b3b3;
+}
+
+.active > a, .active:hover > a {
+    font-weight: 500;
+    color: snow;
+}
+
+@media all and (min-width: 0px) {
+    #menuContent {
+        display: none;
+    }
+}
+
+@media all and (min-width: 768px) {
+    #menuBtn {
+        display: none;
+    }
+
+    #menuContent {
+        display: block;
+    }
+}
+
+.nav-item-1 {
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
