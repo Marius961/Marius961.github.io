@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Апельсин</title>
+    <title>Додати товар</title>
     <meta name="theme-color" content="#2c526a">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/main.css">
@@ -263,85 +263,111 @@
         </div>
     </div>
 </header>
-
-<main class="container mt-2">
-    <div class="row align-items-start">
-        <div class="col-12 pl-md-3 pr-md-3">
-            <div class="row box">
-                <div class="col-12 fs-3">Апельсин</div>
-                <div class="col-12 font-weight-light">код товару: 23132</div>
-            </div>
-        </div>
-
-        <div class="col-12 col-md-5 col-lg-4 pt-1 p-md-1 pl-md-3 pr-md-3">
-            <div class="row box">
-                <div class="col text-center">
-                    <img class="img-autosize" src="https://st.depositphotos.com/1000141/1936/i/950/depositphotos_19366981-stock-photo-one-ripe-orange-in-closeup.jpg">
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-md-7 col-lg-8">
+<main class="container mt-4 mb-3 mb-sm-0">
+    <div class="row">
+        <form class="col box pl-4 pr-4 pt-2 pb-2" id="newProductForm">
             <div class="row">
-                <div class="col-12 pt-1 pl-md-3 pr-md-3">
-                    <div class="row box align-items-center p-2">
-                        <div class="col-12 col-lg-6">
-                            <div class="row">
-                                <div class="col-12">Є в наявності</div>
-                            </div>
-                            <div class="row fs-3 font-weight-bold">
-                                <span class="col-auto" id="price">9999.99</span>
-                                <span class="col-auto p-0">грн/кг</span>
-                            </div>
-                            <div class="row">
-                                <div class="col-auto">Продавець:</div>
-                                <div class="col-auto font-weight-bold">marius965</div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-6 mt-3 mt-lg-0">
-                            <div class="row align-items-center justify-content-center">
-                                <div class="col-7">
-                                    <div class="row">
-                                        <input class="col text-center input-2 p-1" type="number" id="measurementInput">
-                                        <div class="col-4 pt-1">ШТ</div>
-                                    </div>
-                                </div>
-                                <div class="col-5 to-cart-segment p-2 p-md-1">
-                                    <div class="row p-0 align-items-center no-gutters pl-1 pr-2">
-                                        <div class="col-7 col-lg-9 col-xl-7 ">У кошик</div>
-                                        <div class="col-5 col-lg-3 col-xl-5 text-right">
-                                            <img src="img/to_cart_icon_white.png">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 sum-box mt-1 p-2">
-                                    <div class="row">
-                                        <div class="col-12 font-weight-light">Всього до сплати:</div>
-                                        <p class="col-12 fs-4 font-weight-bold" id="sum"></p>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="col-12 fs-4 font-weight-bold">Новий товар</div>
+            </div>
+            <hr class="w-100 mt-3 mb-3">
+            <div class="row">
+                <div class="col-12 col-md-6 pl-4 pr-4">
+                    <div class="row">
+                        <div class="col font-weight-bold">Фото</div>
+                    </div>
+                    <hr class="w-100 m-2">
+                    <div class="row justify-content-center" id="productPhotos">
+                        <div class="col-4 pl-4 pr-4">
+                            <label for="productPhoto">
+                                <img src="img/product-photo.png" width="120" height="120">
+                            </label>
+                            <input type="file" class="d-none" id="productPhoto">
                         </div>
                     </div>
                 </div>
-                <div class="col-12 pt-1 pl-md-3 pr-md-33">
-                    <div class="row box">
-                        <div class="col-12">
-                            <div class="row">
-                                <div class="col-12 p-3" style="background: white">
-                                    <div class="row no-gutters">
-                                        <div class="col-12 font-weight-bold">Опис</div>
-                                        <div class="col-12">
-                                            <p>Опис товару або детальна інформація про склад, походження, стан тощо</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="col-12 col-md-6 pl-4 pr-4">
+                    <div class="row">
+                        <div class="col font-weight-bold">Основна інформація</div>
+                    </div>
+                    <hr class="w-100 m-2">
+                    <div class="row p-2">
+                        <label for="productName" class="col-12 font-weight-bold" >Назва продукту</label>
+                        <input type="text" id="productName" class="col-12 col-md-7 col-lg-6 input-1"
+                               data-toggle="popover"
+                               data-trigger="focus"
+                               data-placement="top"
+                               data-content="цю назву будуть бачити всі користувачі сайту,
+                                            вона відображається на сторінці продукту
+                                            та в каталозі на карточці продукту">
+                    </div>
+                    <div class="row p-2">
+                        <label for="productPriceForMeasurementUnit" class="col-12 font-weight-bold" >Ціна за одиницю</label>
+                        <input type="number" id="productPriceForMeasurementUnit" class="col-3 col-md-4 col-lg-3 input-1"
+                               data-toggle="popover"
+                               data-trigger="focus"
+                               data-placement="top"
+                               data-content="ціна за один кг, або ж одну шт. та інші одиниці вимірювання">
+                        <label for="productMeasurementUnit" class="col-2" >грн</label>
+                        <label for="productMeasurementUnit" class="col-2 text-right" >за</label>
+                        <select id="productMeasurementUnit" class="col-4 col-md-4 col-lg-3 input-1">
+                            <option>кг.</option>
+                            <option>г.</option>
+                            <option>шт.</option>
+                            <option>л.</option>
+                            <option>мл.</option>
+                            <option>т.</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 mt-4 mb-4">
+                    <div class="row">
+                        <div class="col font-weight-bold">Вибір категорії та підкатегорії товару</div>
+                    </div>
+                    <hr class="w-100">
+                    <div class="row mt-3 p-2">
+                        <label for="productCategory" class="col-12 col-sm-5 col-md-4 col-lg-3 text-sm-right" >Категорія товару</label>
+                        <select id="productCategory" class="col-12 col-sm-6 col-md-5 col-lg-3 input-1 p-2 p-sm-0">
+                            <option selected></option>
+                            <option>Пекарня</option>
+                            <option>Фрукти і овочі</option>
+                            <option>Молоко і яйця</option>
+                            <option>М'ясо, риба, птиця</option>
+                            <option>Соуси і спеції</option>
+                            <option>Бакалія</option>
+                        </select>
+                    </div>
+                    <div class="row mt-3 p-2">
+                        <label for="pruductSubcategory" class="col-12 col-sm-5 col-md-4 col-lg-3 text-sm-right" >Підкатегорія товару</label>
+                        <select id="pruductSubcategory" class="col-12 col-sm-6 col-md-5 col-lg-3 input-1 p-2 p-sm-0">
+                            <option selected></option>
+                            <option>Хліб</option>
+                            <option>Хлібці</option>
+                            <option>Булочки</option>
+                            <option>Лаваші та коржі</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 mt-4 mb-4">
+                    <div class="row">
+                        <div class="col font-weight-bold">Опис та активація продажу товару</div>
+                    </div>
+                    <hr class="w-100">
+                    <div class="row mt-3 align-items-start">
+                        <label for="activateProduct" class="col-3 text-right">Активувати продаж</label>
+                        <div class="col-9">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="activateProduct">
+                                <span class="checkmark"></span>
+                            </label>
                         </div>
+                    </div>
+                    <div class="row mt-3 p-2">
+                        <label for="productDescription" class="col-3 text-right" >Опис</label>
+                        <textarea rows="10" id="productDescription" class="col-9 input-1"></textarea>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </main>
 

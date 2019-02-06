@@ -5,6 +5,7 @@ let animationTime = 150,
     menuItemWrappers = $(".menu-item-content-wrapper"),
     navMenuItemActiveClassname = "menu-item-active",
     menu = $("#menu");
+    itemClassNae = "main-menu-item";
 
 let mainMenu = $("#mainMenu");
 
@@ -42,6 +43,7 @@ $("#measurementInput").on("input", function () {
 
 // show dropdown on click on any dropdown button
 $(dropdownButtons).on("click", function () {
+    slideUpMenuWithContent();
     let menu = $(this.parentNode).find(".nav-dropdown-menu");
     if ($(menu).css("display") === "none") {
         clearDropdowSelection();
@@ -76,7 +78,7 @@ $(".popup-bg").ready(function () {
     });
 });
 
-
+// slide up all categories and other menu items on close or open menu
 $(menuButton).click(function () {
     clearDropdowSelection();
     slideUpAllCategoriesWrappers();
@@ -84,6 +86,18 @@ $(menuButton).click(function () {
     menuSlideToggle();
 });
 
+$(".nav-menu, #menuBtn").mouseleave(function () {
+    let menuTimerId = setTimeout(    slideUpMenuWithContent, 500);
+    $(".nav-menu, #menuBtn").mouseover(function () {
+        clearTimeout(menuTimerId);
+    })
+})
+
+function slideUpMenuWithContent() {
+    menuSlideUp();
+    slideUpAllCategoriesWrappers();
+    slideUpAllMenuWrappers();
+}
 
 $(".nav-menu-item").click(function () {
     slideUpAllCategoriesWrappers();
@@ -100,6 +114,7 @@ $(categoryItems).click(function () {
     if ($(wrapper).css("display") === "none") {
         slideUpAllCategoriesWrappers();
     }
+    $(this).toggleClass("category-item-active")
     $(wrapper).slideToggle(animationTime)
 });
 
@@ -110,12 +125,17 @@ function slideUpAllMenuWrappers() {
 }
 
 function slideUpAllCategoriesWrappers() {
+    $(categoryItems).removeClass("category-item-active");
     $(".category-item-content-wrapper").slideUp(animationTime);
 }
 
 
 function menuSlideToggle() {
     $(menu).slideToggle(animationTime);
+}
+
+function menuSlideUp() {
+    $(menu).slideUp(animationTime);
 }
 
 
@@ -138,6 +158,7 @@ $(document).ready(function () {
         readSelectedItemFromUrlParams();
         selectItem($(myOrdersTabMenu.items)[0], myOrdersTabMenu);
         selectItem($(receivedOrdersTabMenu.items)[0], receivedOrdersTabMenu);
+
         $(userMenu.items).click( function (e) {
             selectItem($(this), userMenu);
             e.preventDefault();
@@ -192,7 +213,7 @@ function getParam(name){
 function readSelectedItemFromUrlParams() {
     try {
         let menuItemHref = "#" + getParam("item");
-        let item = $(".item[href='"+ menuItemHref +"']")[0];
+        let item = $(".main-menu-item[href='"+ menuItemHref +"']")[0];
         if (item !== undefined) {
             selectItem($(item), userMenu);
         } else {
@@ -202,3 +223,20 @@ function readSelectedItemFromUrlParams() {
         selectItem($(userMenu.items)[0], userMenu);
     }
 }
+
+
+// enable bootstrap popowers
+$(function () {
+    $('#newProductForm [data-toggle="popover"]').popover({
+        template: '' +
+            '<div class="popover p-2" role="tooltip">' +
+            '   <div class="arrow"></div>' +
+            '   <div class="row align-items-center">\n' +
+            '       <div class="col-auto">\n' +
+            '           <img src="img/tip.png">\n' +
+            '       </div>\n' +
+            '       <div class="col popover-body p-0 pr-2"></div>\n' +
+            '   </div>\n' +
+            '</div>'
+    })
+})
