@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6660a58b-cc58-4d09-a426-1a34b47d2f3d" name="Default Changelist" comment="" />
+    <list default="true" id="6660a58b-cc58-4d09-a426-1a34b47d2f3d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/main.03f25e1e38c42974ecf2.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.d048c4308a412a4c36a9.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,6 +37,7 @@
       <updated>1606216083897</updated>
       <workItem from="1606216084959" duration="846000" />
       <workItem from="1606225363269" duration="512000" />
+      <workItem from="1606226213576" duration="46000" />
     </task>
     <task id="LOCAL-00001" summary="Added gitignore, updated portfolio-website">
       <created>1606216120337</created>
@@ -50,7 +53,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606225424052</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fixed bug with copyright text position">
+      <created>1606226254815</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1606226254815</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -60,16 +70,17 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Added gitignore, updated portfolio-website" />
     <MESSAGE value="Updatet portfolio website, added recaptcha" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updatet portfolio website, added recaptcha" />
+    <MESSAGE value="fixed bug with copyright text position" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed bug with copyright text position" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="430" y="0" key="CommitChangelistDialog2" timestamp="1606225423488">
+    <state x="430" y="0" key="CommitChangelistDialog2" timestamp="1606226254184">
       <screen x="0" y="0" width="1603" height="862" />
     </state>
-    <state x="430" y="0" key="CommitChangelistDialog2/0.0.1603.862/1920.0.1603.862@0.0.1603.862" timestamp="1606225423488" />
-    <state x="393" y="163" key="Vcs.Push.Dialog.v2" timestamp="1606225427458">
+    <state x="430" y="0" key="CommitChangelistDialog2/0.0.1603.862/1920.0.1603.862@0.0.1603.862" timestamp="1606226254184" />
+    <state x="393" y="163" key="Vcs.Push.Dialog.v2" timestamp="1606226257323">
       <screen x="0" y="0" width="1603" height="862" />
     </state>
-    <state x="393" y="163" key="Vcs.Push.Dialog.v2/0.0.1603.862/1920.0.1603.862@0.0.1603.862" timestamp="1606225427458" />
+    <state x="393" y="163" key="Vcs.Push.Dialog.v2/0.0.1603.862/1920.0.1603.862@0.0.1603.862" timestamp="1606226257323" />
   </component>
 </project>
